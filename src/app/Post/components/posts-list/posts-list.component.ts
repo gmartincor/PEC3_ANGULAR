@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
@@ -10,13 +13,17 @@ import { PostDTO } from '../../models/post.dto';
   templateUrl: './posts-list.component.html',
   styleUrls: ['./posts-list.component.scss'],
 })
-export class PostsListComponent {
-  posts: PostDTO[];
+export class PostsListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'title', 'description', 'likes', 'dislikes', 'actions'];
+  dataSource = new MatTableDataSource<PostDTO>([]);
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   private userId: string;
 
   constructor(private router: Router, private store: Store<AppState>) {
     this.userId = '';
-    this.posts = new Array<PostDTO>();
 
     this.store.select('auth').subscribe((auth) => {
       if (auth.credentials.user_id) {
@@ -25,10 +32,26 @@ export class PostsListComponent {
     });
 
     this.store.select('posts').subscribe((posts) => {
-      this.posts = posts.posts;
+      this.dataSource.data = posts.posts;
     });
+  }
 
+  ngOnInit(): void {
     this.loadPosts();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   private loadPosts(): void {
@@ -48,7 +71,6 @@ export class PostsListComponent {
   }
 
   deletePost(postId: string): void {
-    // show confirmation popup
     let result = confirm('Confirm delete post with id: ' + postId + ' .');
     if (result) {
       this.store.dispatch(PostsAction.deletePost({ postId: postId }));
