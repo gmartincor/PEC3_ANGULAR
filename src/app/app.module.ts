@@ -1,3 +1,4 @@
+// src/app/app.module.ts
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,11 +16,16 @@ import { CategoryModule } from './Category/category.module';
 import { PostModule } from './Post/post.module';
 import { FooterComponent } from './Shared/Components/footer/footer.component';
 import { HeaderComponent } from './Shared/Components/header/header.component';
+import { SpinnerModule } from './Shared/Components/spinner/spinner.module';  // Importamos el módulo del spinner
 import { AuthInterceptorService } from './Shared/Services/auth-interceptor.service';
 import { UserModule } from './User/user.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent, 
+    HeaderComponent, 
+    FooterComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,6 +36,7 @@ import { UserModule } from './User/user.module';
     UserModule,
     CategoryModule,
     PostModule,
+    SpinnerModule,  // Añadimos el módulo del spinner
     StoreModule.forRoot(appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,
