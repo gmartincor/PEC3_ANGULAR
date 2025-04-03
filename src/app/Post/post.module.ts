@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MaterialModule } from '../Shared/material.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     FormatDatePipe,
     DashboardComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule],
 })
 export class PostModule {}

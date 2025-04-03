@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   isValidForm: boolean | null;
+  hidePassword = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
     ]);
 
     this.birth_date = new FormControl(
-      formatDate(this.registerUser.birth_date, 'yyyy-MM-dd', 'en'),
+      this.registerUser.birth_date,
       [Validators.required]
     );
 

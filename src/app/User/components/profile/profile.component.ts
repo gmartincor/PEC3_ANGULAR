@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -28,6 +27,7 @@ export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
   isValidForm: boolean | null;
+  hidePassword = true;
 
   private userId: string;
 
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
     ]);
 
     this.birth_date = new FormControl(
-      formatDate(this.profileUser.birth_date, 'yyyy-MM-dd', 'en'),
+      this.profileUser.birth_date,
       [Validators.required]
     );
 
@@ -101,9 +101,7 @@ export class ProfileComponent implements OnInit {
       this.surname_1.setValue(this.profileUser.surname_1);
       this.surname_2.setValue(this.profileUser.surname_2);
       this.alias.setValue(this.profileUser.alias);
-      this.birth_date.setValue(
-        formatDate(this.profileUser.birth_date, 'yyyy-MM-dd', 'en')
-      );
+      this.birth_date.setValue(this.profileUser.birth_date);
       this.email.setValue(this.profileUser.email);
 
       this.profileForm = this.formBuilder.group({
