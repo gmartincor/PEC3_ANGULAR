@@ -1,18 +1,38 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { SharedService } from 'src/app/Shared/Services/shared.service';
 import * as PostsAction from '../../actions';
 import { PostDTO } from '../../models/post.dto';
 import { PostService } from '../../services/post.service';
+import { 
+  trigger, 
+  transition, 
+  style, 
+  animate, 
+  query, 
+  stagger 
+} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('staggerAnimation', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger('100ms', [
+            animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ])
+  ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   posts: PostDTO[];
   showButtons: boolean;
 
