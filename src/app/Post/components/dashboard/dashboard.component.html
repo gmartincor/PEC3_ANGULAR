@@ -1,4 +1,43 @@
-<div *ngIf="posts">
-  <p>Num likes: {{ numLikes }}</p>
-  <p>Num dislikes: {{ numDislikes }}</p>
+<div class="dashboard-container">
+  <h2 class="mat-headline-4 section-title">Dashboard - Estadísticas de Interacciones</h2>
+  
+  <mat-card class="stats-card">
+    <mat-card-header>
+      <mat-card-title>Estadísticas de Likes y Dislikes</mat-card-title>
+      <mat-card-subtitle>Resumen de interacciones de usuarios</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="stats-summary">
+        <div class="stat-box likes">
+          <mat-icon>thumb_up</mat-icon>
+          <div class="stat-value">{{ numLikes }}</div>
+          <div class="stat-label">Total Likes</div>
+        </div>
+        
+        <div class="stat-box dislikes">
+          <mat-icon>thumb_down</mat-icon>
+          <div class="stat-value">{{ numDislikes }}</div>
+          <div class="stat-label">Total Dislikes</div>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <ngx-charts-bar-vertical
+          [view]="view"
+          [results]="chartData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [scheme]="colorScheme"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

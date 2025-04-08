@@ -7,6 +7,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaterialModule } from '../Shared/material.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,11 @@ import { MaterialModule } from '../Shared/material.module';
     FormatDatePipe,
     DashboardComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, MaterialModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    MaterialModule,
+    NgxChartsModule
+  ],
 })
 export class PostModule {}
