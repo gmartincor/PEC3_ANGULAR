@@ -1,0 +1,31 @@
+/* src/app/Shared/Components/header/header.component.scss */
+.mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .menu-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  button {
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .menu-buttons {
+      button span {
+        display: none;
+      }
+    }
+  }
